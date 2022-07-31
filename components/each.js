@@ -36,12 +36,6 @@ export default function Each({ number, Allcourses, setAllCourses}) {
     useEffect(() => {
         check(old)
     },[old]);
-    useEffect(() => {
-        // clear all courses
-        if(Allcourses.length !== 0){
-            setAllCourses([])
-        }
-    },[])
     return (
         <div>
             <TextField
@@ -49,6 +43,7 @@ export default function Each({ number, Allcourses, setAllCourses}) {
                 label="Enter Course Title"
                 style={{ width: '100%', marginBottom: '10px' }}
                 placeholder="E.g CMP 124"
+                value={old}
                 onChange={(e) => changeHandler(e.target.value)}
                 onClick={(e) => setCache(e.target.value)}
                 InputProps={{ endAdornment: <Button variant="outlined" onClick={() => saveHandler(old)} disabled={(status == 'saved') ? true : false}>{status}</Button> }}

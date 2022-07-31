@@ -11,6 +11,7 @@ import Form from './form';
 import Courses from './course';
 import Cookie from "js-cookie"
 import Confirm from './confirm';
+import Days from './days';
 
 
 
@@ -21,6 +22,8 @@ export default function VerticalLinearStepper() {
     const [name, setName] = useState('')
     const [totalcourses, setTotalCourses] = useState(0)
     const [Allcourses, setAllCourses] = useState([]);
+    const [readdays, setReadDays] = useState([]);
+
 
 
     const handleNext = () => {
@@ -46,9 +49,14 @@ export default function VerticalLinearStepper() {
             description: <Courses totalcourses={totalcourses} Allcourses={Allcourses} setAllCourses={setAllCourses} />,
         },
         {
+            label: 'Days',
+            title: 'Select Reading days',
+            description: <Days setReadDays={setReadDays} readdays={readdays} />,
+        },
+        {
             label: 'Confirm',
             title: 'Confirm your Enteries',
-            description: <Confirm />,
+            description: <Confirm Allcourses={Allcourses} name={name} readdays={readdays} totalcourses={totalcourses} />,
         },
     ];
 
