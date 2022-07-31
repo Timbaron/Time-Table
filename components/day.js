@@ -1,5 +1,5 @@
 import { Checkbox } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useState , useEffect } from 'react'
 
 export default function Day({ day, readdays, setReadDays }) {
     const [checked, setChecked] = useState(false);
@@ -11,6 +11,9 @@ export default function Day({ day, readdays, setReadDays }) {
         }
         setChecked(event.target.checked);
     };
+    useEffect(() => {
+        setReadDays([]);
+    }, []);
     return (
         <div>
             <Checkbox
