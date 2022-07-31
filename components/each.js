@@ -1,6 +1,5 @@
 import { Button, TextField } from '@mui/material'
-import React, { useState, useId, useEffect } from 'react'
-import Cookie from "js-cookie"
+import React, { useState, useEffect } from 'react'
 
 export default function Each({ number, Allcourses, setAllCourses}) {
     const [old, setOld] = useState('')
