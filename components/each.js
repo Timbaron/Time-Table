@@ -3,10 +3,9 @@ import React, { useState, useId, useEffect } from 'react'
 import Cookie from "js-cookie"
 
 export default function Each({ number, Allcourses, setAllCourses}) {
-    const [course, setCourse] = useState('')
     const [old, setOld] = useState('')
-    const id = useId();
     const [status,setStatus] = useState('unsaved')
+    const [cache,setCache] = useState('')
     
     function saveHandler(code){
         if(code !== ''){
@@ -20,9 +19,30 @@ export default function Each({ number, Allcourses, setAllCourses}) {
 
     }
     function changeHandler(code){
+        if(status === 'saved'){
+            if (Allcourses.includes(cache)) {
+                setAllCourses(Allcourses.filter(course => course !== cache))
+            }
+        }
         setStatus('unsaved')
+        setOld('')
         setOld(code)
     }
+    const check = (code) =>{
+        if (Allcourses.includes(code)) {
+            setStatus('saved')
+        }
+    }
+
+    useEffect(() => {
+        check(old)
+    },[old]);
+    useEffect(() => {
+        // clear all courses
+        if(Allcourses.length !== 0){
+            setAllCourses([])
+        }
+    },[])
     return (
         <div>
             <TextField
@@ -31,6 +51,7 @@ export default function Each({ number, Allcourses, setAllCourses}) {
                 style={{ width: '100%', marginBottom: '10px' }}
                 placeholder="E.g CMP 124"
                 onChange={(e) => changeHandler(e.target.value)}
+                onClick={(e) => setCache(e.target.value)}
                 InputProps={{ endAdornment: <Button variant="outlined" onClick={() => saveHandler(old)} disabled={(status == 'saved') ? true : false}>{status}</Button> }}
             />
         </div>

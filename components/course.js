@@ -17,7 +17,7 @@ export default function Courses({ totalcourses, Allcourses, setAllCourses }) {
   }
   return (
     <div>
-      {Allcourses}
+      {Allcourses.length}
       {rendered}
     </div>
   )
