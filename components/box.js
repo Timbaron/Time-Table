@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -12,6 +12,7 @@ import Courses from './course';
 import Cookie from "js-cookie"
 import Confirm from './confirm';
 import Days from './days';
+import Link from 'next/link';
 
 
 
@@ -24,7 +25,18 @@ export default function VerticalLinearStepper() {
     const [Allcourses, setAllCourses] = useState([]);
     const [readdays, setReadDays] = useState([]);
 
-
+    useEffect(() => {
+        localStorage.setItem('readdays', JSON.stringify(readdays));
+    }, [readdays]);
+    useEffect(() => {
+        localStorage.setItem('Allcourses', JSON.stringify(Allcourses));
+    }, [Allcourses]);
+    useEffect(() => {
+        localStorage.setItem('name', name);
+    }, [name]);
+    useEffect(() => {
+        localStorage.setItem('totalcourses', totalcourses);
+    }, [totalcourses]);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -86,7 +98,7 @@ export default function VerticalLinearStepper() {
                                             onClick={handleNext}
                                             sx={{ mt: 1, mr: 1 }}
                                         >
-                                            {index === steps.length - 1 ? 'GENERATE' : 'Continue'}
+                                            {index === steps.length - 1 ? <Link href="/time-table">GENERATE</Link> : 'Continue'}
                                         </Button>
                                         <Button
                                             disabled={index === 0}
@@ -100,15 +112,7 @@ export default function VerticalLinearStepper() {
                             </StepContent>
                         </Step>
                     ))}
-                </Stepper>
-                {activeStep === steps.length && (
-                    <Paper square elevation={0} sx={{ p: 3 }}>
-                        <Typography>All steps completed - you&apos;re finished</Typography>
-                        <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-                            Reset
-                        </Button>
-                    </Paper>
-                )}
+                </Stepper>                
             </Box>
         </div>
     );
